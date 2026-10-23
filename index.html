@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator - The Odin Project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="calculator">
+        <!-- Layar Kalkulator -->
+        <div class="display" id="display">0</div>
+
+        <!-- Area Tombol -->
+        <div class="buttons">
+            <!-- Baris 1: Kontrol Utama & Operator -->
+            <button class="btn clear" id="clear">AC</button>
+            <button class="btn backspace" id="backspace">⌫</button>
+            <button class="btn operator" data-operator="/">÷</button>
+
+            <!-- Baris 2 -->
+            <button class="btn digit">7</button>
+            <button class="btn digit">8</button>
+            <button class="btn digit">9</button>
+            <button class="btn operator" data-operator="*">×</button>
+
+            <!-- Baris 3 -->
+            <button class="btn digit">4</button>
+            <button class="btn digit">5</button>
+            <button class="btn digit">6</button>
+            <button class="btn operator" data-operator="-">−</button>
+
+            <!-- Baris 4 -->
+            <button class="btn digit">1</button>
+            <button class="btn digit">2</button>
+            <button class="btn digit">3</button>
+            <button class="btn operator" data-operator="+">+</button>
+
+            <!-- Baris 5 -->
+            <button class="btn digit zero">0</button>
+            <button class="btn decimal" id="decimal">.</button>
+            <button class="btn equals" id="equals">=</button>
+        </div>
+    </div>
+</body>
+
+<script src="./script.js"></script>
+
+</html>
