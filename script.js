@@ -18,7 +18,7 @@ function divide(a, b) {
     return a / b;
 }
 
-// Fungsi Utama untuk Operasi Evaluasi
+// Fungsi Utama Evaluasi
 function operate(operator, a, b) {
     a = Number(a);
     b = Number(b);
@@ -51,38 +51,47 @@ const clearButton = document.getElementById('clear');
 const backspaceButton = document.getElementById('backspace');
 const decimalButton = document.getElementById('decimal');
 
-// Helper untuk memperbarui layar & membatasi desimal agar tidak overflow
+// Format tampilan agar SELALU muat 1 baris
 function updateDisplay(content) {
     if (typeof content === 'number') {
-        // Pembulatan angka desimal agar tidak terlalu panjang
-        content = Math.round(content * 1000000) / 1000000;
+        const numStr = content.toString();
+
+        // Jika angka terlalu besar/panjang (> 9 digit), konversi ke notasi ilmiah (e.g. 1.5e+11)
+        if (numStr.length > 9 || Math.abs(content) >= 1e9) {
+            content = content.toExponential(4);
+        } else {
+            // Pembulatan desimal agar tidak panjang
+            content = Math.round(content * 100000) / 100000;
+        }
     }
     display.textContent = content;
 }
 
-// Menangani Input Angka
+// Menangani Input Angka (Maksimal 9 digit saat diketik)
 function appendDigit(digit) {
     if (display.textContent === '0' || shouldResetDisplay) {
         display.textContent = '';
         shouldResetDisplay = false;
     }
-    display.textContent += digit;
+    if (display.textContent.length < 9) {
+        display.textContent += digit;
+    }
 }
 
-// Menangani Input Desimal / Titik
+// Menangani Input Desimal
 function appendDecimal() {
     if (shouldResetDisplay) {
         display.textContent = '0';
         shouldResetDisplay = false;
     }
-    if (!display.textContent.includes('.')) {
+    if (!display.textContent.includes('.') && display.textContent.length < 9) {
         display.textContent += '.';
     }
 }
 
-// Menangani Pemilihan Operator
+// Menangani Operator
 function setOperator(operator) {
-    if (currentOperator !== null) {
+    if (currentOperator !== null && !shouldResetDisplay) {
         evaluate();
     }
     firstNumber = display.textContent;
@@ -105,7 +114,7 @@ function evaluate() {
         currentOperator = null;
         shouldResetDisplay = true;
     } else {
-        firstNumber = result;
+        firstNumber = display.textContent;
         currentOperator = null;
         shouldResetDisplay = true;
     }
@@ -130,7 +139,7 @@ function handleBackspace() {
     }
 }
 
-// --- Event Listeners untuk Tombol (Klik UI) ---
+// --- Event Listeners Klik UI ---
 digitButtons.forEach(button => {
     button.addEventListener('click', () => appendDigit(button.textContent));
 });

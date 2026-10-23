@@ -27,18 +27,20 @@ body {
 .display {
   background-color: #292d36;
   color: #ffffff;
-  font-size: 2.5rem;
+  font-size: 1.6rem; /* Diperkecil agar muat hingga 10-12 angka */
   text-align: right;
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
-  word-wrap: break-word;
-  word-break: break-all;
   min-height: 80px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  overflow-x: scroll;
+
+  /* Kunci 1 baris */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Grid Tombol */
